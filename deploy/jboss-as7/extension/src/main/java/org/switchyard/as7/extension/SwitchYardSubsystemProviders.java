@@ -65,6 +65,34 @@ final class SwitchYardSubsystemProviders {
         }
     };
 
+    static final DescriptionProvider SUBSYSTEM_GET_VERSION = new DescriptionProvider() {
+
+        public ModelNode getModelDescription(final Locale locale) {
+            return Descriptions.getSubsystemGetVersion(locale);
+        }
+    };
+
+    static final DescriptionProvider SUBSYSTEM_GET_APPLICATIONS = new DescriptionProvider() {
+
+        public ModelNode getModelDescription(final Locale locale) {
+            return Descriptions.getSubsystemGetApplications(locale);
+        }
+    };
+
+    static final DescriptionProvider SUBSYSTEM_GET_COMPONENTS = new DescriptionProvider() {
+
+        public ModelNode getModelDescription(final Locale locale) {
+            return Descriptions.getSubsystemGetComponents(locale);
+        }
+    };
+
+    static final DescriptionProvider SUBSYSTEM_GET_SERVICES = new DescriptionProvider() {
+
+        public ModelNode getModelDescription(final Locale locale) {
+            return Descriptions.getSubsystemGetServices(locale);
+        }
+    };
+
     private static ResourceBundle getResourceBundle(Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
@@ -96,6 +124,58 @@ final class SwitchYardSubsystemProviders {
 
             op.get(OPERATION_NAME).set(ADD);
             op.get(DESCRIPTION).set(bundle.getString("switchyard.add"));
+
+            op.get(REPLY_PROPERTIES).setEmptyObject();
+
+            return op;
+        }
+
+        static ModelNode getSubsystemGetVersion(Locale locale) {
+            final ResourceBundle bundle = getResourceBundle(locale);
+
+            final ModelNode op = new ModelNode();
+
+            op.get(OPERATION_NAME).set(ADD);
+            op.get(DESCRIPTION).set(bundle.getString("switchyard.getVersion"));
+
+            op.get(REPLY_PROPERTIES).setEmptyObject();
+
+            return op;
+        }
+
+        static ModelNode getSubsystemGetApplications(Locale locale) {
+            final ResourceBundle bundle = getResourceBundle(locale);
+
+            final ModelNode op = new ModelNode();
+
+            op.get(OPERATION_NAME).set(ADD);
+            op.get(DESCRIPTION).set(bundle.getString("switchyard.getApplications"));
+
+            op.get(REPLY_PROPERTIES).setEmptyObject();
+
+            return op;
+        }
+
+        static ModelNode getSubsystemGetComponents(Locale locale) {
+            final ResourceBundle bundle = getResourceBundle(locale);
+
+            final ModelNode op = new ModelNode();
+
+            op.get(OPERATION_NAME).set(ADD);
+            op.get(DESCRIPTION).set(bundle.getString("switchyard.getComponents"));
+
+            op.get(REPLY_PROPERTIES).setEmptyObject();
+
+            return op;
+        }
+
+        static ModelNode getSubsystemGetServices(Locale locale) {
+            final ResourceBundle bundle = getResourceBundle(locale);
+
+            final ModelNode op = new ModelNode();
+
+            op.get(OPERATION_NAME).set(ADD);
+            op.get(DESCRIPTION).set(bundle.getString("switchyard.getServices"));
 
             op.get(REPLY_PROPERTIES).setEmptyObject();
 

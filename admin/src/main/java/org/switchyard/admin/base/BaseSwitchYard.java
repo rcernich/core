@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import javax.xml.namespace.QName;
 
 import org.switchyard.admin.Application;
 import org.switchyard.admin.Component;
@@ -37,10 +41,10 @@ import org.switchyard.admin.SwitchYard;
 public class BaseSwitchYard implements SwitchYard {
     
     private String _version;
-    private List<Application> _applications = 
-        Collections.synchronizedList(new LinkedList<Application>());
-    private List<Component> _components = 
-        Collections.synchronizedList(new LinkedList<Component>());
+    private ConcurrentMap<QName, Application> _applications = 
+        new ConcurrentHashMap<QName, Application>();
+    private ConcurrentMap<String, Component> _components = 
+        new ConcurrentHashMap<String, Component>();
     private List<Service> _services = 
         Collections.synchronizedList(new LinkedList<Service>());
     
@@ -50,39 +54,34 @@ public class BaseSwitchYard implements SwitchYard {
 
     @Override
     public List<Application> getApplications() {
-        synchronized(_applications) {
-            return new ArrayList<Application>(_applications);
-        }
+        return new ArrayList<Application>(_applications.values());
     }
     
     public BaseSwitchYard addApplication(Application application) {
-        synchronized(_applications) {
-            _applications.add(application);
-            return this;
+        Application existing = _applications.putIfAbsent(application.getName(), application);
+        if (existing == null) {
+            _services.addAll(application.getServices());
         }
+        return this;
     }
     
     public BaseSwitchYard removeApplication(Application application) {
-        synchronized(_applications) {
-            _applications.remove(application);
-            return this;
-        }
+        _applications.remove(application.getName());
+        return this;
     }
 
     @Override
     public List<Component> getComponents() {
-        synchronized(_components) {
-            return new ArrayList<Component>(_components);
-        }
+        return new ArrayList<Component>(_components.values());
     }
 
     public BaseSwitchYard addComponent(Component component) {
-        _components.add(component);
+        _components.putIfAbsent(component.getName(), component);
         return this;
     }
     
     public BaseSwitchYard removeComponent(Component component) {
-        _components.remove(component);
+        _components.remove(component.getName());
         return this;
     }
 
@@ -108,6 +107,16 @@ public class BaseSwitchYard implements SwitchYard {
     
     public void setVersion(String version) {
         _version = version;
+    }
+
+    @Override
+    public Component findComponent(String name) {
+        return _components.get(name);
+    }
+
+    @Override
+    public Application findApplication(QName name) {
+        return _applications.get(name);
     }
 
 }

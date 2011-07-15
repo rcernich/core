@@ -33,6 +33,7 @@ import org.jboss.dmr.ModelNode;
 import org.jboss.logging.Logger;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.ServiceController;
+import org.switchyard.as7.extension.admin.SwitchYardAdminService;
 import org.switchyard.as7.extension.deployment.SwitchYardCdiIntegrationProcessor;
 import org.switchyard.as7.extension.deployment.SwitchYardConfigDeploymentProcessor;
 import org.switchyard.as7.extension.deployment.SwitchYardConfigProcessor;
@@ -84,6 +85,12 @@ public final class SwitchYardSubsystemAdd extends AbstractBoottimeAddStepHandler
             }
         }, OperationContext.Stage.RUNTIME);
         LOG.info("Activating SwitchYard Extension");
+
+        // TODO: introspect switchyard version
+        final String version = "0.2.0";
+        final SwitchYardAdminService adminService = new SwitchYardAdminService(version);
+        newControllers.add(context.getServiceTarget().addService(SwitchYardAdminService.SERVICE_NAME, adminService)
+                .install());
     }
 
 }

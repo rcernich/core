@@ -53,6 +53,10 @@ import org.jboss.staxmapper.XMLElementReader;
 import org.jboss.staxmapper.XMLElementWriter;
 import org.jboss.staxmapper.XMLExtendedStreamReader;
 import org.jboss.staxmapper.XMLExtendedStreamWriter;
+import org.switchyard.as7.extension.admin.SwitchYardSubsystemGetApplications;
+import org.switchyard.as7.extension.admin.SwitchYardSubsystemGetComponents;
+import org.switchyard.as7.extension.admin.SwitchYardSubsystemGetServices;
+import org.switchyard.as7.extension.admin.SwitchYardSubsystemGetVersion;
 
 /**
  * Domain extension used to initialize the SwitchYard subsystem.
@@ -77,6 +81,12 @@ public class SwitchYardExtension implements Extension {
         registration.registerOperationHandler(ADD, SwitchYardSubsystemAdd.INSTANCE, SwitchYardSubsystemProviders.SUBSYSTEM_ADD, false);
         registration.registerOperationHandler(DESCRIBE, SwitchYardSubsystemDescribe.INSTANCE, SwitchYardSubsystemProviders.SUBSYSTEM_DESCRIBE, false, OperationEntry.EntryType.PRIVATE);
         subsystem.registerXMLElementWriter(PARSER);
+
+        // register administrative functions
+        registration.registerOperationHandler(SwitchYardModelConstants.GET_VERSION, SwitchYardSubsystemGetVersion.INSTANCE, SwitchYardSubsystemProviders.SUBSYSTEM_GET_VERSION, false);
+        registration.registerOperationHandler(SwitchYardModelConstants.GET_APPLICATIONS, SwitchYardSubsystemGetApplications.INSTANCE, SwitchYardSubsystemProviders.SUBSYSTEM_GET_APPLICATIONS, false);
+        registration.registerOperationHandler(SwitchYardModelConstants.GET_COMPONENTS, SwitchYardSubsystemGetComponents.INSTANCE, SwitchYardSubsystemProviders.SUBSYSTEM_GET_COMPONENTS, false);
+        registration.registerOperationHandler(SwitchYardModelConstants.GET_SERVICES, SwitchYardSubsystemGetServices.INSTANCE, SwitchYardSubsystemProviders.SUBSYSTEM_GET_SERVICES, false);
 
         DescriptionProvider nullDescriptionProvider = new DescriptionProvider() {
             @Override

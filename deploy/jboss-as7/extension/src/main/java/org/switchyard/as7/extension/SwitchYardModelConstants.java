@@ -16,45 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
  * MA  02110-1301, USA.
  */
+package org.switchyard.as7.extension;
 
-package org.switchyard.admin;
+public final class SwitchYardModelConstants {
 
-import java.util.List;
+    public static final String GET_VERSION = "get-version";
+    public static final String GET_APPLICATIONS = "get-applications";
+    public static final String GET_COMPONENTS = "get-components";
+    public static final String GET_SERVICES = "get-services";
 
-import javax.xml.namespace.QName;
-
-/**
- * Top-level admin interface for SwitchYard runtime.
- */
-public interface SwitchYard {
-
-    /**
-     * The version of the SwitchYard runtime.
-     * @return SwitchYard version
-     */
-    String getVersion();
-    
-    /**
-     * List of applications current deployed in SwitchYard runtime.
-     * @return list of SwitchYard applications
-     */
-    List<Application> getApplications();
-    
-    /**
-     * List of implementation and gateway components currently installed in 
-     * SwitchYard runtime.
-     * @return list of SwitchYard components
-     */
-    List<Component> getComponents();
-    
-    /**
-     * List of services currently registered in the SwitchYard runtime.
-     * @return list of SwitchYard services
-     */
-    List<Service> getServices();
-    
-    Component findComponent(String name);
-    
-    Application findApplication(QName name);
+    private SwitchYardModelConstants() {
+    }
 
 }

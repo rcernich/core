@@ -16,46 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
  * MA  02110-1301, USA.
  */
+package org.switchyard.as7.extension.admin;
 
-package org.switchyard.admin.base;
+import org.jboss.msc.service.Service;
+import org.jboss.msc.service.ServiceName;
+import org.jboss.msc.service.StartContext;
+import org.jboss.msc.service.StartException;
+import org.jboss.msc.service.StopContext;
+import org.switchyard.admin.SwitchYard;
+import org.switchyard.admin.base.BaseSwitchYard;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.xml.namespace.QName;
-
-import org.switchyard.admin.Application;
-import org.switchyard.admin.Service;
-
-public class BaseApplication implements Application {
+public class SwitchYardAdminService implements Service<SwitchYard> {
     
-    private QName _name;
-    private List<Service> _services;
+    public final static ServiceName SERVICE_NAME = ServiceName.of("SwitchYardAdminService");
     
-    public BaseApplication(QName name, List<Service> services) {
-        this(name);
-        _services = services;
-    }
+    private final String _version;
+    private SwitchYard _switchYard;
 
-    public BaseApplication(QName name) {
-        _name = name;
+    public SwitchYardAdminService(String version) {
+        _version = version;
     }
 
     @Override
-    public QName getName() {
-        return _name;
+    public SwitchYard getValue() throws IllegalStateException, IllegalArgumentException {
+        return _switchYard;
     }
 
     @Override
-    public List<Service> getServices() {
-        if (_services == null) {
-            return Collections.emptyList();
-        }
-        return _services;
+    public void start(StartContext context) throws StartException {
+        _switchYard = new BaseSwitchYard(_version);
     }
-    
-    public void setServices(List<Service> services) {
-        _services = services;
+
+    @Override
+    public void stop(StopContext context) {
+        _switchYard = null;
     }
 
 }
