@@ -236,6 +236,17 @@ public class DomainImpl implements ServiceDomain {
     }
 
     @Override
+    public void removeObserver(EventObserver observer) {
+        _eventManager.removeObserver(observer);
+    }
+
+    @Override
+    public void removeObserverForEvent(
+            EventObserver observer, Class<? extends EventObject> eventType) {
+        _eventManager.removeObserverForEvent(observer, eventType);
+    }
+
+    @Override
     public EventPublisher getEventPublisher() {
         return _eventManager;
     }
