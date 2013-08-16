@@ -98,4 +98,43 @@ public interface ContextMapperModel extends Model {
      */
     public ContextMapperModel setExcludeNamespaces(String excludeNamespaces);
 
+    /**
+     * Gets the declared header properties to be added to "in" messages.
+     * @return the StaticPropertiesModel to be applied to "in" messages.
+     */
+    public StaticPropertiesModel getStaticInMessageProperties();
+
+    /**
+     * Sets the declared header properties to be added to "in" messages.
+     * @param inHeaderProperties the StaticPropertiesModel to be applied to "in" messages.
+     * @return this instance (useful for chaining)
+     */
+    public ContextMapperModel setStaticInMessageProperties(StaticPropertiesModel inHeaderProperties);
+
+    /**
+     * Gets the declared header properties to be added to "out" messages.
+     * @return the StaticPropertiesModel to be applied to "out" messages.
+     */
+    public StaticPropertiesModel getStaticOutMessageProperties();
+
+    /**
+     * Sets the declared header properties to be added to "out" messages.
+     * @param outHeaderProperties the StaticPropertiesModel to be applied to "out" messages.
+     * @return this instance (useful for chaining)
+     */
+    public ContextMapperModel setStaticOutMessageProperties(StaticPropertiesModel outHeaderProperties);
+
+    /**
+     * Gets the declared header properties to be added to "context" messages.
+     * @return the StaticPropertiesModel to be applied to "context" messages.
+     */
+    public StaticPropertiesModel getStaticExchangeProperties();
+
+    /**
+     * Sets the declared header properties to be added to "context" messages.
+     * @param contextHeaderProperties the StaticPropertiesModel to be applied to "context" messages.
+     * @return this instance (useful for chaining)
+     */
+    public ContextMapperModel setStaticExchangeProperties(StaticPropertiesModel contextHeaderProperties);
+
 }

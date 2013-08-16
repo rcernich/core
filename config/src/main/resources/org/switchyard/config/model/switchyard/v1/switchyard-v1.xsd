@@ -41,11 +41,29 @@
     </complexType>
 
     <complexType name="ContextMapperType">
+        <all>
+            <element name="in" type="swyd:HeaderPropertiesType" minOccurs="0" maxOccurs="1"/>
+            <element name="out" type="swyd:HeaderPropertiesType" minOccurs="0" maxOccurs="1"/>
+            <element name="exchange" type="swyd:HeaderPropertiesType" minOccurs="0" maxOccurs="1"/>
+        </all>
         <attribute name="class" type="string" use="optional"/>
         <attribute name="includes" type="string" use="optional"/>
         <attribute name="excludes" type="string" use="optional"/>
         <attribute name="includeNamespaces" type="string" use="optional"/>
         <attribute name="excludeNamespaces" type="string" use="optional"/>
+    </complexType>
+    <complexType name="HeaderPropertiesType">
+        <sequence>
+            <element name="header" type="swyd:HeaderPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="HeaderPropertyType">
+        <simpleContent>
+            <extension base="string">
+                <attribute name="name" type="string" use="required"/>
+                <attribute name="labels" type="sca:listOfNCNames" use="optional"/>
+            </extension>
+        </simpleContent>
     </complexType>
 
     <complexType name="MessageComposerType">

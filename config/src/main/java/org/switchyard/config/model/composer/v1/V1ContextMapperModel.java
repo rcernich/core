@@ -21,6 +21,7 @@ import org.switchyard.config.Configuration;
 import org.switchyard.config.model.BaseModel;
 import org.switchyard.config.model.Descriptor;
 import org.switchyard.config.model.composer.ContextMapperModel;
+import org.switchyard.config.model.composer.StaticPropertiesModel;
 import org.switchyard.config.model.composite.BindingModel;
 import org.switchyard.config.model.switchyard.SwitchYardModel;
 
@@ -30,6 +31,10 @@ import org.switchyard.config.model.switchyard.SwitchYardModel;
  * @author David Ward &lt;<a href="mailto:dward@jboss.org">dward@jboss.org</a>&gt; (C) 2011 Red Hat Inc.
  */
 public class V1ContextMapperModel extends BaseModel implements ContextMapperModel {
+
+    private StaticPropertiesModel _staticInMessageProperties;
+    private StaticPropertiesModel _staticOutMessageProperties;
+    private StaticPropertiesModel _staticExchangeProperties;
 
     /**
      * Constructs a new V1ContextMapperModel in the default switchyard namespace.
@@ -145,6 +150,51 @@ public class V1ContextMapperModel extends BaseModel implements ContextMapperMode
     @Override
     public ContextMapperModel setExcludeNamespaces(String excludeNamespaces) {
         setModelAttribute("excludeNamespaces", excludeNamespaces);
+        return this;
+    }
+
+    @Override
+    public StaticPropertiesModel getStaticInMessageProperties() {
+        if (_staticInMessageProperties == null) {
+            _staticInMessageProperties = (StaticPropertiesModel)getFirstChildModelStartsWith(StaticPropertiesModel.IN);
+        }
+        return _staticInMessageProperties;
+    }
+
+    @Override
+    public ContextMapperModel setStaticInMessageProperties(StaticPropertiesModel inHeaderProperties) {
+        setChildModel(inHeaderProperties);
+        _staticInMessageProperties = inHeaderProperties;
+        return this;
+    }
+
+    @Override
+    public StaticPropertiesModel getStaticOutMessageProperties() {
+        if (_staticOutMessageProperties == null) {
+            _staticOutMessageProperties = (StaticPropertiesModel)getFirstChildModelStartsWith(StaticPropertiesModel.OUT);
+        }
+        return _staticOutMessageProperties;
+    }
+
+    @Override
+    public ContextMapperModel setStaticOutMessageProperties(StaticPropertiesModel outHeaderProperties) {
+        setChildModel(outHeaderProperties);
+        _staticOutMessageProperties = outHeaderProperties;
+        return this;
+    }
+
+    @Override
+    public StaticPropertiesModel getStaticExchangeProperties() {
+        if (_staticExchangeProperties == null) {
+            _staticExchangeProperties = (StaticPropertiesModel)getFirstChildModelStartsWith(StaticPropertiesModel.EXCHANGE);
+        }
+        return _staticExchangeProperties;
+    }
+
+    @Override
+    public ContextMapperModel setStaticExchangeProperties(StaticPropertiesModel contextHeaderProperties) {
+        setChildModel(contextHeaderProperties);
+        _staticExchangeProperties = contextHeaderProperties;
         return this;
     }
 
