@@ -13,20 +13,18 @@
  - limitations under the License.
  -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="urn:switchyard-config:test-smooks:1.1"
-        xmlns:smooks="urn:switchyard-config:test-smooks:1.1"
-        xmlns:swyd="urn:switchyard-config:switchyard:1.1"
+        targetNamespace="urn:switchyard-config:test-java:1.0"
+        xmlns:java="urn:switchyard-config:test-java:1.0"
+        xmlns:swyd="urn:switchyard-config:switchyard:1.0"
         elementFormDefault="qualified">
 
-    <import namespace="urn:switchyard-config:switchyard:1.1"/>
+    <import namespace="urn:switchyard-config:switchyard:1.0"/>
 
-    <element name="transform.smooks" type="smooks:SmooksTransformType" substitutionGroup="swyd:transform"/>
-    <complexType name="SmooksTransformType">
+    <element name="transform.java" type="java:JavaTransformType" substitutionGroup="swyd:transform"/>
+    <complexType name="JavaTransformType">
         <complexContent>
             <extension base="swyd:TransformType">
-                <sequence>
-                    <element name="config" type="string" minOccurs="1" maxOccurs="1"/>
-                </sequence>
+                <attribute name="class" type="string" use="required"/>
             </extension>
         </complexContent>
     </complexType>

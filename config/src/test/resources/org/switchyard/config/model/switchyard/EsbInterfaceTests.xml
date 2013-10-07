@@ -12,21 +12,21 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
  -->
-<switchyard xmlns="urn:switchyard-config:switchyard:1.0"
+<switchyard xmlns="urn:switchyard-config:switchyard:1.1"
             xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
             xmlns:bean="urn:switchyard-config:test-bean:1.0"
-            xmlns:java="urn:switchyard-config:test-java:1.0"
-            xmlns:smooks="urn:switchyard-config:test-smooks:1.0"
+            xmlns:java="urn:switchyard-config:test-java:1.1"
+            xmlns:smooks="urn:switchyard-config:test-smooks:1.1"
             xmlns:soap="urn:switchyard-config:test-soap:1.0"
-            xmlns:vjava="urn:switchyard-config:test-validate-java:1.0"
-            xmlns:vxml="urn:switchyard-config:test-validate-xml:1.0"
+            xmlns:vjava="urn:switchyard-config:test-validate-java:1.1"
+            xmlns:vxml="urn:switchyard-config:test-validate-xml:1.1"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="
                    urn:switchyard-config:test-bean:1.0 ../composite/test/bean/bean.xsd
-                   urn:switchyard-config:test-java:1.0 test/java/java.xsd
-                   urn:switchyard-config:test-smooks:1.0 test/smooks/smooks.xsd
-                   urn:switchyard-config:test-validate-java:1.0 test/validate/java/java.xsd
-                   urn:switchyard-config:test-validate-xml:1.0 test/validate/xml/xml.xsd
+                   urn:switchyard-config:test-java:1.1 test/java/java.xsd
+                   urn:switchyard-config:test-smooks:1.1 test/smooks/smooks.xsd
+                   urn:switchyard-config:test-validate-java:1.1 test/validate/java/java.xsd
+                   urn:switchyard-config:test-validate-xml:1.1 test/validate/xml/xml.xsd
                    urn:switchyard-config:test-soap:1.0 ../composite/test/soap/soap.xsd"
             name="EsbInterfaceTest">
 	<sca:composite

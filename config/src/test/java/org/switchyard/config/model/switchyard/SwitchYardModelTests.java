@@ -60,6 +60,7 @@ public class SwitchYardModelTests {
     private static final String INCOMPLETE_XML = "/org/switchyard/config/model/switchyard/SwitchYardModelTests-Incomplete.xml";
     private static final String FRAGMENT_XML = "/org/switchyard/config/model/switchyard/SwitchYardModelTests-Fragment.xml";
     private static final String COMPLETE_XML = "/org/switchyard/config/model/switchyard/SwitchYardModelTests-Complete.xml";
+    private static final String COMPLETE_1_0_XML = "/org/switchyard/config/model/switchyard/SwitchYardModelTests-Complete-1.0.xml";
 
     private ModelPuller<SwitchYardModel> _puller;
 
@@ -190,6 +191,12 @@ public class SwitchYardModelTests {
     @Test
     public void testValidation() throws Exception {
         SwitchYardModel switchyard = _puller.pull(COMPLETE_XML, getClass());
+        switchyard.assertModelValid();
+    }
+
+    @Test
+    public void testValidation_1_0() throws Exception {
+        SwitchYardModel switchyard = _puller.pull(COMPLETE_1_0_XML, getClass());
         switchyard.assertModelValid();
     }
 

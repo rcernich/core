@@ -64,6 +64,17 @@ public class DeploymentTest {
     }
     
     @Test
+    public void testSwitchYardConfiguration_1_0() throws Exception {
+        InputStream swConfigStream = Classes.getResourceAsStream("/switchyard-config-1.0.xml", getClass());
+        Deployment deployment = new Deployment(swConfigStream);
+        swConfigStream.close();
+
+        MockDomain serviceDomain = new MockDomain();
+        deployment.init(serviceDomain, ActivatorLoader.createActivators(serviceDomain));
+        deployment.destroy();
+    }
+    
+    @Test
     public void testComponentReferenceBinding() throws Exception {
         InputStream swConfigStream = Classes.getResourceAsStream("/switchyard-config-component-reference-binding-01.xml", getClass());
         Deployment deployment = new Deployment(swConfigStream);

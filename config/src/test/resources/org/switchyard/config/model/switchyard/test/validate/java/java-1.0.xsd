@@ -13,20 +13,18 @@
  - limitations under the License.
  -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="urn:switchyard-config:test-smooks:1.1"
-        xmlns:smooks="urn:switchyard-config:test-smooks:1.1"
-        xmlns:swyd="urn:switchyard-config:switchyard:1.1"
+        targetNamespace="urn:switchyard-config:test-validate-java:1.0"
+        xmlns:vjava="urn:switchyard-config:test-validate-java:1.0"
+        xmlns:swyd="urn:switchyard-config:switchyard:1.0"
         elementFormDefault="qualified">
 
-    <import namespace="urn:switchyard-config:switchyard:1.1"/>
+    <import namespace="urn:switchyard-config:switchyard:1.0"/>
 
-    <element name="transform.smooks" type="smooks:SmooksTransformType" substitutionGroup="swyd:transform"/>
-    <complexType name="SmooksTransformType">
+    <element name="validate.java" type="vjava:JavaValidateType" substitutionGroup="swyd:validate"/>
+    <complexType name="JavaValidateType">
         <complexContent>
-            <extension base="swyd:TransformType">
-                <sequence>
-                    <element name="config" type="string" minOccurs="1" maxOccurs="1"/>
-                </sequence>
+            <extension base="swyd:ValidateType">
+                <attribute name="class" type="string" use="required"/>
             </extension>
         </complexContent>
     </complexType>

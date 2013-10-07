@@ -12,8 +12,13 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
  -->
-<switchyard xmlns="urn:switchyard-config:switchyard:1.1">
-    <transforms>
-        <transform.xslt xmlns="urn:switchyard-config:transform:1.1"  from="A" to="B" xsltFile="org/switchyard/transform/internal/xslt/topics.xslt"/>
-    </transforms>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0">
+    <validates>
+        <validate.java xmlns="urn:switchyard-config:validate:1.0" name="msgA" class="org.examples.validate.AValidate"/>
+        <validate.xml xmlns="urn:switchyard-config:validate:1.0" schemaType="XML_SCHEMA" name="msgB" failOnWarning="true">
+            <schemaFiles>
+                <entry file="/validates/xxx.xml"/>
+            </schemaFiles>
+        </validate.xml>
+    </validates>
 </switchyard>

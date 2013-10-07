@@ -12,8 +12,8 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
  -->
-<switchyard xmlns="urn:switchyard-config:switchyard:1.0">
-    <transforms xmlns:trans="urn:switchyard-config:transform:1.0">
+<switchyard xmlns="urn:switchyard-config:switchyard:1.1">
+    <transforms xmlns:trans="urn:switchyard-config:transform:1.1">
         <trans:transform.java from="A" to="B" class="org.switchyard.deploy.internal.transformers.ABTransformer"/>
         <trans:transform.java from="C" to="D" class="org.switchyard.deploy.internal.transformers.CDTransformer"/>
     </transforms>

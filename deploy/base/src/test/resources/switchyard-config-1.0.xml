@@ -12,9 +12,19 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
  -->
-<switchyard xmlns="urn:switchyard-config:switchyard:1.1">
-    <validates xmlns:vldt="urn:switchyard-config:validate:1.1">
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0">
+    <transforms xmlns:trans="urn:switchyard-config:transform:1.0">
+        <trans:transform.java from="A" to="B" class="org.switchyard.deploy.internal.transformers.ABTransformer"/>
+        <trans:transform.java from="C" to="D" class="org.switchyard.deploy.internal.transformers.CDTransformer"/>
+    </transforms>
+    <validates xmlns:vldt="urn:switchyard-config:validate:1.0">
         <vldt:validate.java name="A" class="org.switchyard.deploy.internal.validators.AValidator"/>
         <vldt:validate.java name="B" class="org.switchyard.deploy.internal.validators.BValidator"/>
     </validates>
+    <domain>
+        <properties>
+            <property name="abc" value="abc-value"/>
+            <property name="xyz" value="xyz-value"/>
+        </properties>
+    </domain>
 </switchyard>

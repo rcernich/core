@@ -12,8 +12,8 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
  -->
-<switchyard xmlns="urn:switchyard-config:switchyard:1.0">
+<switchyard xmlns="urn:switchyard-config:switchyard:1.1">
     <transforms>
-        <transform.xslt xmlns="urn:switchyard-config:transform:1.0" from="A" to="B"/>
+        <transform.xslt xmlns="urn:switchyard-config:transform:1.1" from="A" to="B"/>
     </transforms>
 </switchyard>

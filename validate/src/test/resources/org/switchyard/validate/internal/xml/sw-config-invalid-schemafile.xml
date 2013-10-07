@@ -12,9 +12,9 @@
  - See the License for the specific language governing permissions and
  - limitations under the License.
  -->
-<switchyard xmlns="urn:switchyard-config:switchyard:1.0">
+<switchyard xmlns="urn:switchyard-config:switchyard:1.1">
     <validates>
-        <validate.xml xmlns="urn:switchyard-config:validate:1.0" schemaType="XML_SCHEMA" name="A" >
+        <validate.xml xmlns="urn:switchyard-config:validate:1.1" schemaType="XML_SCHEMA" name="A" >
             <schemaFiles>
                 <entry file="/org/switchyard/validate/internal/xml/person-invalid.xsd"/>
             </schemaFiles>

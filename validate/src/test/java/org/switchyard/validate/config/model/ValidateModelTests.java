@@ -46,6 +46,7 @@ import org.switchyard.validate.config.model.v1.V1XmlValidateModel;
 public class ValidateModelTests {
 
     private static final String XML = "/org/switchyard/validate/config/model/ValidateModelTests.xml";
+    private static final String XML_1_0 = "/org/switchyard/validate/config/model/ValidateModelTests-1.0.xml";
 
     private ModelPuller<SwitchYardModel> _puller;
 
@@ -126,6 +127,12 @@ public class ValidateModelTests {
     @Test
     public void testValidation() throws Exception {
         SwitchYardModel switchyard = _puller.pull(XML, getClass());
+        switchyard.assertModelValid();
+    }
+
+    @Test
+    public void testValidation_1_0() throws Exception {
+        SwitchYardModel switchyard = _puller.pull(XML_1_0, getClass());
         switchyard.assertModelValid();
     }
 

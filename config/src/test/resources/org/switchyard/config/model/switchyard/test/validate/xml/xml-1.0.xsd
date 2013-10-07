@@ -13,12 +13,12 @@
  - limitations under the License.
  -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="urn:switchyard-config:test-validate-xml:1.1"
-        xmlns:vxml="urn:switchyard-config:test-validate-xml:1.1"
-        xmlns:swyd="urn:switchyard-config:switchyard:1.1"
+        targetNamespace="urn:switchyard-config:test-validate-xml:1.0"
+        xmlns:vxml="urn:switchyard-config:test-validate-xml:1.0"
+        xmlns:swyd="urn:switchyard-config:switchyard:1.0"
         elementFormDefault="qualified">
 
-    <import namespace="urn:switchyard-config:switchyard:1.1"/>
+    <import namespace="urn:switchyard-config:switchyard:1.0"/>
 
     <element name="validate.xml" type="vxml:XmlValidateType" substitutionGroup="swyd:validate"/>
     <complexType name="XmlValidateType">

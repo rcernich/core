@@ -44,6 +44,7 @@ import org.switchyard.transform.config.model.v1.V1SmooksTransformModel;
 public class TransformModelTests {
 
     private static final String XML = "/org/switchyard/transform/config/model/TransformModelTests.xml";
+    private static final String XML_1_0 = "/org/switchyard/transform/config/model/TransformModelTests-1.0.xml";
 
     private ModelPuller<SwitchYardModel> _puller;
 
@@ -126,6 +127,12 @@ public class TransformModelTests {
     @Test
     public void testValidation() throws Exception {
         SwitchYardModel switchyard = _puller.pull(XML, getClass());
+        switchyard.assertModelValid();
+    }
+
+    @Test
+    public void testValidation_1_0() throws Exception {
+        SwitchYardModel switchyard = _puller.pull(XML_1_0, getClass());
         switchyard.assertModelValid();
     }
 

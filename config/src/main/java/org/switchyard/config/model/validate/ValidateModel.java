@@ -25,7 +25,7 @@ import org.switchyard.config.model.Model;
 public interface ValidateModel extends Model {
 
     /** The default "validate" namespace. */
-    public static final String DEFAULT_NAMESPACE = "urn:switchyard-config:validate:1.0";
+    public static final String DEFAULT_NAMESPACE = "urn:switchyard-config:validate:1.1";
 
     /** The "validate" name. */
     public static final String VALIDATE = "validate";
