@@ -43,6 +43,7 @@ import org.switchyard.common.type.Classes;
 import org.switchyard.common.type.reflect.Construction;
 import org.switchyard.config.ConfigMessages;
 import org.switchyard.config.Configuration;
+import org.switchyard.config.model.DescriptorManager.ConfigurationVersion;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -79,10 +80,25 @@ public final class Descriptor {
     private Map<Set<String>,Schema> _namespaces_schema_map = new HashMap<Set<String>,Schema>();
     private Map<String,Marshaller> _namespace_marshaller_map = new HashMap<String,Marshaller>();
 
+    private final ConfigurationVersion _configurationVersion;
+
     /**
-     * Constructs a new Descriptor based on discovered default properties.
+     * Constructs a new Descriptor based on discovered properties for the
+     * default ConfigurationVersion.
      */
     public Descriptor() {
+        _configurationVersion = ConfigurationVersion.getDefault();
+        addDefaultProperties();
+    }
+
+    /**
+     * Constructs a new Descriptor based on discovered properties for the
+     * specified ConfigurationVersion.
+     * 
+     * @param version the configuration version to load.
+     */
+    public Descriptor(final ConfigurationVersion version) {
+        _configurationVersion = version;
         addDefaultProperties();
     }
 
@@ -91,6 +107,7 @@ public final class Descriptor {
      * @param props the Properties
      */
     public Descriptor(Properties props) {
+        _configurationVersion = null;
         addProperties(props);
     }
 
@@ -117,7 +134,7 @@ public final class Descriptor {
         Properties props = new Properties();
         PropertiesPuller props_puller = new PropertiesPuller();
         try {
-            List<URL> urls = Classes.getResources(DEFAULT_PROPERTIES, loader);
+            List<URL> urls = Classes.getResources(_configurationVersion.getDescriptorPath(), loader);
             for (URL url : urls) {
                 Properties url_props = props_puller.pull(url);
                 Enumeration<?> pn_enum = url_props.propertyNames();
@@ -156,6 +173,14 @@ public final class Descriptor {
                 }
             }
         }
+    }
+
+    /**
+     * @return the ConfigurationVersion associated with this descriptor; may be
+     *         null.
+     */
+    public ConfigurationVersion getConfigurationVersion() {
+        return _configurationVersion;
     }
 
     /**

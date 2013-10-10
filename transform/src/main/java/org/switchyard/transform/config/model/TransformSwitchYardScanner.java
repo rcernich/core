@@ -21,12 +21,14 @@ import java.util.List;
 import org.switchyard.common.cdi.CDIUtil;
 import org.switchyard.common.type.classpath.AbstractTypeFilter;
 import org.switchyard.common.type.classpath.ClasspathScanner;
+import org.switchyard.config.model.DescriptorManager.ConfigurationVersion;
 import org.switchyard.config.model.Scannable;
 import org.switchyard.config.model.Scanner;
 import org.switchyard.config.model.ScannerInput;
 import org.switchyard.config.model.ScannerOutput;
 import org.switchyard.config.model.switchyard.SwitchYardModel;
 import org.switchyard.config.model.switchyard.v1.V1SwitchYardModel;
+import org.switchyard.config.model.transform.TransformModel;
 import org.switchyard.config.model.transform.TransformsModel;
 import org.switchyard.config.model.transform.v1.V1TransformsModel;
 import org.switchyard.transform.config.model.v1.V1JavaTransformModel;
@@ -35,17 +37,40 @@ import org.switchyard.transform.internal.TransformerUtil;
 
 /**
  * Scanner for {@link org.switchyard.transform.Transformer} implementations.
- *
+ * 
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>
  */
 public class TransformSwitchYardScanner implements Scanner<SwitchYardModel> {
+
+    private String _transformNamespace;
+    private String _switchYardNamespace;
+
+    @Override
+    public void init(ConfigurationVersion version) {
+        if (version == null) {
+            _transformNamespace = TransformModel.DEFAULT_NAMESPACE;
+            _switchYardNamespace = SwitchYardModel.DEFAULT_NAMESPACE;
+        } else {
+            switch (version) {
+            case v1_0:
+                _transformNamespace = TransformModel.NAMESPACE_1_0;
+                _switchYardNamespace = SwitchYardModel.NAMESPACE_1_0;
+                break;
+            case v1_1:
+            default:
+                _transformNamespace = TransformModel.DEFAULT_NAMESPACE;
+                _switchYardNamespace = SwitchYardModel.DEFAULT_NAMESPACE;
+                break;
+            }
+        }
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public ScannerOutput<SwitchYardModel> scan(ScannerInput<SwitchYardModel> input) throws IOException {
-        SwitchYardModel switchyardModel = new V1SwitchYardModel();
+        SwitchYardModel switchyardModel = new V1SwitchYardModel(_switchYardNamespace);
         TransformsModel transformsModel = null;
 
         List<Class<?>> transformerClasses = scanForTransformers(input.getURLs());
@@ -53,7 +78,7 @@ public class TransformSwitchYardScanner implements Scanner<SwitchYardModel> {
             List<TransformerTypes> supportedTransforms = TransformerUtil.listTransformations(transformer);
 
             for (TransformerTypes supportedTransform : supportedTransforms) {
-                JavaTransformModel transformModel = new V1JavaTransformModel();
+                JavaTransformModel transformModel = new V1JavaTransformModel(_transformNamespace);
 
                 String bean = CDIUtil.getNamedAnnotationValue(transformer);
                 if (bean != null) {
@@ -65,7 +90,7 @@ public class TransformSwitchYardScanner implements Scanner<SwitchYardModel> {
                 transformModel.setTo(supportedTransform.getTo());
 
                 if (transformsModel == null) {
-                    transformsModel = new V1TransformsModel();
+                    transformsModel = new V1TransformsModel(_transformNamespace);
                     switchyardModel.setTransforms(transformsModel);
                 }
                 transformsModel.addTransform(transformModel);

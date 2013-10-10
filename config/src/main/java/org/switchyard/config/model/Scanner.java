@@ -15,6 +15,8 @@ package org.switchyard.config.model;
 
 import java.io.IOException;
 
+import org.switchyard.config.model.DescriptorManager.ConfigurationVersion;
+
 /**
  * Scans for Models.
  * 
@@ -31,5 +33,11 @@ public interface Scanner<M extends Model> {
      * @throws IOException if a problem occurrs
      */
     public ScannerOutput<M> scan(ScannerInput<M> input) throws IOException;
+    
+    /**
+     * TODO: maybe we have a scan context, of which ConfigurationVersion is a member.
+     * @param version the version of the model being scanned/produced.
+     */
+    public void init(ConfigurationVersion version);
 
 }
