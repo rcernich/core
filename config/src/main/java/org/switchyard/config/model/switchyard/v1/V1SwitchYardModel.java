@@ -39,6 +39,7 @@ public class V1SwitchYardModel extends BaseNamedModel implements SwitchYardModel
     private TransformsModel _transforms;
     private ValidatesModel _validates;
     private DomainModel _domain;
+    private ConfigurationVersion _configurationVersion;
 
     /**
      * Constructs a new V1SwitchYardModel.
@@ -182,6 +183,30 @@ public class V1SwitchYardModel extends BaseNamedModel implements SwitchYardModel
         if (_composite != null) {
             _composite.setCompositePropertyResolver();
         }
+    }
+
+    @Override
+    public synchronized ConfigurationVersion getConfigurationVersion() {
+        if (_configurationVersion == null) {
+            final String version = getModelAttribute(VERSION);
+            if (version == null) {
+                _configurationVersion = ConfigurationVersion.getDefault();
+            } else {
+                _configurationVersion = ConfigurationVersion.fromString(version);
+            }
+        }
+        return _configurationVersion;
+    }
+
+    @Override
+    public void setRawConfigurationVersion(String version) {
+        _configurationVersion = ConfigurationVersion.fromString(version);
+        setModelAttribute(VERSION, version);
+    }
+
+    @Override
+    public String getRawConfigurationVersion() {
+        return getModelAttribute(VERSION);
     }
 
 }

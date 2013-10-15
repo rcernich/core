@@ -48,6 +48,7 @@ import org.switchyard.config.model.composite.ExtensionsModel;
 import org.switchyard.config.model.composite.InterfaceModel;
 import org.switchyard.config.model.switchyard.EsbInterfaceModel;
 import org.switchyard.config.model.switchyard.SwitchYardModel;
+import org.switchyard.config.model.switchyard.SwitchYardModel.ConfigurationVersion;
 import org.switchyard.config.model.switchyard.ThrottlingModel;
 import org.switchyard.config.model.transform.TransformsModel;
 import org.switchyard.config.model.validate.ValidatesModel;
@@ -113,6 +114,11 @@ public class Deployment extends AbstractDeployment {
      */
     protected void doInit(List<Activator> activators) {
         _log.debug("Initializing deployment " + getName());
+        if (getConfig().getConfigurationVersion() == ConfigurationVersion.UNKNOWN) {
+            _log.warnf(
+                    "Attempting to deploy application using %s configuration, but this server is only supports up to %s.",
+                    getConfig().getRawConfigurationVersion(), ConfigurationVersion.getLatest());
+        }
         // create a new domain and load transformer , validator and activator instances for lifecycle
         registerTransformers();
         registerValidators();

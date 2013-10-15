@@ -31,7 +31,20 @@
         </sequence>
         <attribute name="name" type="string" use="optional"/>
         <attribute name="targetNamespace" type="string" use="optional"/>
+        <attribute name="version" type="swyd:versionEnum" use="optional" default="1.0">
+            <annotation>
+                <documentation>
+                    Specifies the runtime version targeted by this configuration. @since 1.1.
+                </documentation>
+            </annotation>
+        </attribute>
     </complexType>
+    <simpleType name="versionEnum">
+        <restriction base="string">
+            <enumeration value="1.0"/>
+            <enumeration value="1.1"/>
+        </restriction>
+    </simpleType>
 
     <element name="binding.switchyard" type="swyd:SwitchYardBindingType" substitutionGroup="sca:binding" abstract="true"/>
     <complexType name="SwitchYardBindingType" abstract="true">

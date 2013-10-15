@@ -32,6 +32,67 @@ public interface SwitchYardModel extends NamedModel {
     /** The "switchyard" name. */
     public static final String SWITCHYARD = "switchyard";
 
+    /** The "version" attribute. */
+    public static final String VERSION = "version";
+
+    /**
+     * Represents a specific version of SwitchYard application configuration
+     * model.  Aligns with versionEnum in switchyard-v1.xsd.
+     * 
+     * @since 1.1
+     */
+    public enum ConfigurationVersion {
+        /** An unknown version (i.e. one newer than supported by this model). */
+        UNKNOWN(""),
+        /** The configuration version used with SwitchYard 1.0.x projects. */
+        v1_0("1.0"),
+        /** The configuration version used with SwitchYard 1.1.x projects. */
+        v1_1("1.1");
+
+        private final String _version;
+
+        private ConfigurationVersion(final String version) {
+            _version = version;
+        }
+
+        /**
+         * @return the version string, e.g. "1.0"
+         */
+        public String getString() {
+            return _version;
+        }
+
+        /**
+         * @return the default configuration version
+         */
+        public static ConfigurationVersion getDefault() {
+            return v1_0;
+        }
+
+        /**
+         * @return the default configuration version
+         */
+        public static ConfigurationVersion getLatest() {
+            return ConfigurationVersion.values()[ConfigurationVersion.values().length - 1];
+        }
+
+        /**
+         * @param version the version string, e.g. "1.0"
+         * @return the corresponding ConfigurationVersion.
+         */
+        public static ConfigurationVersion fromString(final String version) {
+            if (version == null) {
+                return getDefault();
+            }
+            for (ConfigurationVersion configurationVersion : ConfigurationVersion.values()) {
+                if (configurationVersion._version.equals(version)) {
+                    return configurationVersion;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
+
     /**
      * Gets the child composite model.
      * @return the child composite model
@@ -102,4 +163,25 @@ public interface SwitchYardModel extends NamedModel {
      */
     public void setDomainPropertyResolver();
 
+    /**
+     * XXX: consider moving this up into Model.
+     * 
+     * @return the specified configuration version, or the default version.
+     * @since 1.1
+     */
+    public ConfigurationVersion getConfigurationVersion();
+    
+    /**
+     * XXX: consider moving this up into Model.
+     * 
+     * @param version the minimum runtime version for which this configuration
+     *            is applicable.
+     * @since 1.1
+     */
+    public void setRawConfigurationVersion(String version);
+    
+    /**
+     * @return the raw text for the configuration version.
+     */
+    public String getRawConfigurationVersion();
 }
