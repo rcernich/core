@@ -35,6 +35,7 @@
             org.switchyard.transform.ootb.*;
             org.switchyard.transform.smooks.*;
             org.switchyard.transform.xslt.*;
+            org.switchyard.transform.osgi.internal.*;
         </switchyard.osgi.export.pkg>
         <switchyard.osgi.import>
             org.dozer.*;resolution:=optional,
@@ -45,6 +46,9 @@
             org.switchyard.config.model;org.switchyard.*;${switchyard.osgi.import.switchyard.version},
             *
         </switchyard.osgi.import>
+        <switchyard.osgi.provide.capability>
+            org.switchyard.transform;version:Version=${switchyard.osgi.version}
+        </switchyard.osgi.provide.capability>
     </properties>
     <dependencies>
         <!-- internal dependencies -->
@@ -123,6 +127,11 @@
         <dependency>
             <groupId>org.mvel</groupId>
             <artifactId>mvel2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

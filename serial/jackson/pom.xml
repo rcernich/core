@@ -29,6 +29,9 @@
         <switchyard.osgi.export.pkg>
             org.switchyard.serial.jackson.*
         </switchyard.osgi.export.pkg>
+        <switchyard.osgi.provide.capability>
+            org.switchyard.serial; type="jackson";version:Version=${switchyard.osgi.version}
+        </switchyard.osgi.provide.capability>
     </properties>
     <dependencies>
         <!-- internal dependencies -->

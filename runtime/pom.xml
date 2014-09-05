@@ -32,6 +32,9 @@
             org.switchyard.runtime.*;
             org.switchyard.spi.*
         </switchyard.osgi.export.pkg>
+        <switchyard.osgi.provide.capability>
+            org.switchyard.runtime;version:Version=${switchyard.osgi.version}
+        </switchyard.osgi.provide.capability>
     </properties>
     <build>
         <plugins>
